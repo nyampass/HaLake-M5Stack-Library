@@ -25,8 +25,8 @@ bool HaLakeM5StackLibrary::connectWifi(char *ssid, char *pass){
   return true;
 }
 
-void HaLakeM5StackLibrary::webServer_addService(String uri, void (*callback)()){  
-  ServiceObject newService = {uri, callback};
+void HaLakeM5StackLibrary::webServer_addService(String uri, String resp, void (*callback)()){  
+  ServiceObject newService = {uri, resp, callback};
   services[service_amount] = newService;
   service_amount += 1;
 }
@@ -65,9 +65,10 @@ void HaLakeM5StackLibrary::webServer_requestHandle(){
           for(int i = 0; i < service_amount; i++){
             if(path == services[i].uri){
               services[i].callback();
-              sendGetResponse(&client, "hohoooho", "200");
+              sendGetResponse(&client, services[i].html, "200");
+              break;
             }
-            if(i >= sizeof(services) - 1) sendGetResponse(&client, "404", "404");
+            if(i >= service_amount - 1) sendGetResponse(&client, "404", "404");
           }
           request.clear();
           queries.clear();

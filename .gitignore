@@ -9,3 +9,4 @@
 platformio.ini
 .travis.yml
 main.cpp
+*.ino
