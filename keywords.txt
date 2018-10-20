@@ -1,0 +1,25 @@
+#######################################
+# Syntax Coloring Map for HaLakeKit
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+HaLakeKit	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+begin	KEYWORD2
+accel_x	KEYWORD2
+accel_y	KEYWORD2
+accel_z	KEYWORD2
+accel_comp	KEYWORD2
+accel_print_xyz	KEYWORD2
+switch_pushed	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
