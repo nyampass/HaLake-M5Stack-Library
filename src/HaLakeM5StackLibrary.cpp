@@ -22,7 +22,7 @@ String HaLakeM5StackLibrary::connectWifi(char *ssid, char *pass){
   Serial.println("IP address: ");
   Serial.println(WiFi.localIP());
 
-  return String(WiFi.localIP());
+  return WiFi.localIP().toString(); 
 }
 
 void HaLakeM5StackLibrary::webServer_addService(String uri, String resp, void (*callback)()){  
