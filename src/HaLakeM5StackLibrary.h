@@ -17,7 +17,7 @@ class HaLakeM5StackLibrary{
     struct ServiceObject{
       String uri;
       String html;
-      void (*callback)();
+      void (*callback)(String*);
     };
 
     void sendGetResponse(WiFiClient *client, String html, String status);
@@ -29,7 +29,7 @@ class HaLakeM5StackLibrary{
   public:
     void begin(unsigned long serial_rate = 115200);
     String connectWifi(char *ssid, char *pass);
-    void webServer_addService(String uri, String resp, void (*callback)());
+    void webServer_addService(String uri, String resp, void (*callback)(String*));
     void webServer_open();
     void webServer_requestHandle();
 };

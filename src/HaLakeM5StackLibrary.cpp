@@ -25,7 +25,7 @@ String HaLakeM5StackLibrary::connectWifi(char *ssid, char *pass){
   return WiFi.localIP().toString(); 
 }
 
-void HaLakeM5StackLibrary::webServer_addService(String uri, String resp, void (*callback)()){  
+void HaLakeM5StackLibrary::webServer_addService(String uri, String resp, void (*callback)(String*)){  
   ServiceObject newService = {uri, resp, callback};
   services[service_amount] = newService;
   service_amount += 1;
@@ -64,7 +64,7 @@ void HaLakeM5StackLibrary::webServer_requestHandle(){
 
           for(int i = 0; i < service_amount; i++){
             if(path == services[i].uri){
-              services[i].callback();
+              services[i].callback(&services[i].html);
               sendGetResponse(&client, services[i].html, "200");
               break;
             }
