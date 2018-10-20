@@ -39,6 +39,7 @@ void HaLakeM5StackLibrary::webServer_requestHandle(){
   uint8_t serverPos = 0;
   String line = "";
   String path = "";
+  String response = "";
   ChainArray request;
   ChainArray queries;
   WiFiClient client;
@@ -64,8 +65,9 @@ void HaLakeM5StackLibrary::webServer_requestHandle(){
 
           for(int i = 0; i < service_amount; i++){
             if(path == services[i].uri){
-              services[i].callback(&services[i].html);
-              sendGetResponse(&client, services[i].html, "200");
+              response = services[i].html;
+              services[i].callback(&response);
+              sendGetResponse(&client, response, "200");
               break;
             }
             if(i >= service_amount - 1) sendGetResponse(&client, "404", "404");
