@@ -6,7 +6,7 @@ void HaLakeM5StackLibrary::begin(unsigned long serial_rate){
   Serial.begin(serial_rate);
 }
 
-bool HaLakeM5StackLibrary::connectWifi(char *ssid, char *pass){
+String HaLakeM5StackLibrary::connectWifi(char *ssid, char *pass){
   uint8_t cnt = 0;
 
   WiFi.disconnect(true);
@@ -16,13 +16,13 @@ bool HaLakeM5StackLibrary::connectWifi(char *ssid, char *pass){
     Serial.print(".");
     cnt += 1;
   }
-  if(WiFi.status() != WL_CONNECTED) return false;
+  if(WiFi.status() != WL_CONNECTED) return "";
 
   Serial.println("\nWiFi connected.");
   Serial.println("IP address: ");
   Serial.println(WiFi.localIP());
 
-  return true;
+  return String(WiFi.localIP());
 }
 
 void HaLakeM5StackLibrary::webServer_addService(String uri, String resp, void (*callback)()){  
