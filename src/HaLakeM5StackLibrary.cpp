@@ -36,7 +36,6 @@ void HaLakeM5StackLibrary::webServer_open(){
 }
 
 void HaLakeM5StackLibrary::webServer_requestHandle(){
-  uint8_t serverPos = 0;
   String line = "";
   String path = "";
   String response = "";
@@ -66,7 +65,9 @@ void HaLakeM5StackLibrary::webServer_requestHandle(){
           for(int i = 0; i < service_amount; i++){
             if(path == services[i].uri){
               response = services[i].html;
-              services[i].callback(&response);
+              if(services[i].callback != nullptr){
+                services[i].callback(&response);
+              }
               sendGetResponse(&client, response, "200");
               break;
             }
@@ -81,13 +82,13 @@ void HaLakeM5StackLibrary::webServer_requestHandle(){
 }
 
 void HaLakeM5StackLibrary::sendGetResponse(WiFiClient *client, String html, String status){
-    String contentLength = String(html.length());
-    String statusResp = "HTTP/1.1 " + status + " OK";
-    String contentLengthResp = "Content-Length: " + contentLength;
-    String connectionResp = "Connection: close";
-    String contentTypeResp = "Content-Type: text/html";
-    String newLine = "\r\n";
+  String contentLength = String(html.length());
+  String statusResp = "HTTP/1.1 " + status + " OK";
+  String contentLengthResp = "Content-Length: " + contentLength;
+  String connectionResp = "Connection: close";
+  String contentTypeResp = "Content-Type: text/html";
+  String newLine = "\r\n";
 
-    client->print(statusResp + newLine + contentLengthResp + newLine + connectionResp + newLine +contentTypeResp + newLine + newLine + html);
-    client->stop();
-  }
+  client->print(statusResp + newLine + contentLengthResp + newLine + connectionResp + newLine +contentTypeResp + newLine + newLine + html);
+  client->stop();
+}

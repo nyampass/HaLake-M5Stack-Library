@@ -29,7 +29,7 @@ class HaLakeM5StackLibrary{
   public:
     void begin(unsigned long serial_rate = 115200);
     String connectWifi(char *ssid, char *pass);
-    void webServer_addService(String uri, String resp, void (*callback)(String*));
+    void webServer_addService(String uri, String resp, void (*callback)(String*) = nullptr);
     void webServer_open();
     void webServer_requestHandle();
 };
