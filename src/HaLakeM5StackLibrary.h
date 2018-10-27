@@ -23,13 +23,15 @@ class HaLakeM5StackLibrary{
     void sendGetResponse(WiFiClient *client, String html, String status);
 
     uint8_t service_amount = 0;
+    String notFoundResponse = "404";
     ServiceObject services[WEBSERVER_SERVICE_LIMIT];
-    Utils *utils = new  Utils();
+    Utils *utils = new Utils();
 
   public:
     void begin(unsigned long serial_rate = 115200);
     String connectWifi(char *ssid, char *pass);
     void webServer_addService(String uri, String resp, void (*callback)(String*) = nullptr);
+    void webServer_setNotFound(String resp);
     void webServer_open();
     void webServer_requestHandle();
 };

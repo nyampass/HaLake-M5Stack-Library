@@ -31,6 +31,10 @@ void HaLakeM5StackLibrary::webServer_addService(String uri, String resp, void (*
   service_amount += 1;
 }
 
+void HaLakeM5StackLibrary::webServer_setNotFound(String resp){
+  notFoundResponse = resp;
+}
+
 void HaLakeM5StackLibrary::webServer_open(){
   Server.begin();
 }
@@ -71,7 +75,7 @@ void HaLakeM5StackLibrary::webServer_requestHandle(){
               sendGetResponse(&client, response, "200");
               break;
             }
-            if(i >= service_amount - 1) sendGetResponse(&client, "404", "404");
+            if(i >= service_amount - 1) sendGetResponse(&client, notFoundResponse, "404");
           }
           request.clear();
           queries.clear();
