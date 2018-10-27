@@ -24,6 +24,7 @@ class HaLakeM5StackLibrary{
 
     void sendGetResponse(WiFiClient *client, String html, String status);
 
+    bool SPIFFSIni = false;
     uint8_t service_amount = 0;
     String notFoundResponse = "404";
     ServiceObject services[WEBSERVER_SERVICE_LIMIT];

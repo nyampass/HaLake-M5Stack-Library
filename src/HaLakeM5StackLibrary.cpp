@@ -8,6 +8,7 @@ bool HaLakeM5StackLibrary::begin(unsigned long serial_rate, bool spiffs){
   Serial.begin(serial_rate);
   if(spiffs){
     if(!SPIFFS.begin()) result = false;
+    else SPIFFSIni = true;
   }
 }
 
@@ -102,7 +103,9 @@ void HaLakeM5StackLibrary::sendGetResponse(WiFiClient *client, String html, Stri
   client->stop();
 }
 
-String HaLakeM5StackLibrary::SPIFFS_readFile(String path){
+String HaLakeM5StackLibrary::SPIFFS_readFile(String path){ 
+  if(!SPIFFSIni) return "";
+
   File file = SPIFFS.open(path);
   String result = "";
   
@@ -117,6 +120,8 @@ String HaLakeM5StackLibrary::SPIFFS_readFile(String path){
 }
 
 bool HaLakeM5StackLibrary::SPIFFS_writeFile(String path, String value){
+  if(!SPIFFSIni) return false;
+
   File file = SPIFFS.open(path, FILE_WRITE);
 
   if(!file){
@@ -128,5 +133,7 @@ bool HaLakeM5StackLibrary::SPIFFS_writeFile(String path, String value){
 }
 
 void HaLakeM5StackLibrary::SPIFFS_removeFile(String path){
+  if(!SPIFFSIni) return;
+
   SPIFFS.remove(path);
 }
