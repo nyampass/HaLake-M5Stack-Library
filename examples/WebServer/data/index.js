@@ -1,3 +1,3 @@
 $(document).ready(() => {
-	console.log("hoge");
+	console.log("Hello HaLakeM5StackLibrary!");
 })
