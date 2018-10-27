@@ -2,6 +2,8 @@
 #define HaLakeM5StackLibrary_h 
 
 #include <Arduino.h>
+#include <FS.h>
+#include <SPIFFS.h>
 #include <WiFi.h>
 #include <HTTPClient.h>
 #include <vector>
@@ -28,12 +30,17 @@ class HaLakeM5StackLibrary{
     Utils *utils = new Utils();
 
   public:
-    void begin(unsigned long serial_rate = 115200);
+    bool begin(unsigned long serial_rate = 115200, bool spiffs = true);
     String connectWifi(char *ssid, char *pass);
+
     void webServer_addService(String uri, String resp, void (*callback)(String*) = nullptr);
     void webServer_setNotFound(String resp);
     void webServer_open();
     void webServer_requestHandle();
+
+    String SPIFFS_readFile(String path);
+    bool SPIFFS_writeFile(String path, String value);
+    void SPIFFS_removeFile(String path);
 };
 
 #endif

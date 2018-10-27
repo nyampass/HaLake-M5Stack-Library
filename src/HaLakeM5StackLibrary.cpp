@@ -2,8 +2,13 @@
 
 WiFiServer Server(80);
 
-void HaLakeM5StackLibrary::begin(unsigned long serial_rate){
+bool HaLakeM5StackLibrary::begin(unsigned long serial_rate, bool spiffs){
+  bool result = true;
+
   Serial.begin(serial_rate);
+  if(spiffs){
+    if(!SPIFFS.begin()) result = false;
+  }
 }
 
 String HaLakeM5StackLibrary::connectWifi(char *ssid, char *pass){
@@ -95,4 +100,33 @@ void HaLakeM5StackLibrary::sendGetResponse(WiFiClient *client, String html, Stri
 
   client->print(statusResp + newLine + contentLengthResp + newLine + connectionResp + newLine +contentTypeResp + newLine + newLine + html);
   client->stop();
+}
+
+String HaLakeM5StackLibrary::SPIFFS_readFile(String path){
+  File file = SPIFFS.open(path);
+  String result = "";
+  
+  if (!file || file.isDirectory()) {
+    return "";
+  }
+  while (file.available()) {
+    result += char(file.read());
+  }
+
+  return result;
+}
+
+bool HaLakeM5StackLibrary::SPIFFS_writeFile(String path, String value){
+  File file = SPIFFS.open(path, FILE_WRITE);
+
+  if(!file){
+    file = SPIFFS.open(path, FILE_APPEND);
+    if(!file) return false;
+  }
+  if(file.print(value)) return true;
+  else return false;
+}
+
+void HaLakeM5StackLibrary::SPIFFS_removeFile(String path){
+  SPIFFS.remove(path);
 }
