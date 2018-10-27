@@ -6,19 +6,24 @@
 # Datatypes (KEYWORD1)
 #######################################
 
-HaLakeKit	KEYWORD1
+HaLakeM5StackLibrary KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
 
 begin	KEYWORD2
-accel_x	KEYWORD2
-accel_y	KEYWORD2
-accel_z	KEYWORD2
-accel_comp	KEYWORD2
-accel_print_xyz	KEYWORD2
-switch_pushed	KEYWORD2
+begin KEYWORD2
+connectWifi KEYWORD2
+
+webServer_addService KEYWORD2
+webServer_setNotFound KEYWORD2
+webServer_open KEYWORD2
+webServer_requestHandle KEYWORD2
+
+SPIFFS_readFile KEYWORD2
+SPIFFS_writeFile KEYWORD2
+SPIFFS_removeFile KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
